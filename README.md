@@ -1,5 +1,7 @@
 # RowGuard CSV Validation API
 
+[![Verify examples](https://github.com/Frere527/rowguard-api-examples/actions/workflows/check.yml/badge.svg)](https://github.com/Frere527/rowguard-api-examples/actions/workflows/check.yml)
+
 Catch missing values, invalid types and duplicate identifiers before importing a CSV into your database. Send the file as text with your schema; receive structured errors and, optionally, the valid rows. The API does not write to your database.
 
 **Live API:** [Subscribe or try RowGuard on RapidAPI](https://rapidapi.com/Frere527/api/rowguard-csv-validation1). The BASIC plan includes 25 requests per month at no subscription charge. Review the current marketplace terms and bandwidth fee before subscribing.

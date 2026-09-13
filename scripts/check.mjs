@@ -28,10 +28,21 @@ for(const item of collection.item){
 const syntax=spawnSync(process.execPath,['--check','examples/client.js'],{encoding:'utf8'});
 assert.equal(syntax.status,0,syntax.stderr);
 
-const files=(await readdir('.',{recursive:true,withFileTypes:true})).filter(entry=>entry.isFile()&&!/node_modules|__pycache__|\.git/.test(entry.parentPath));
+const workflow=await readFile('.github/workflows/check.yml','utf8');
+const publicActionPins=[
+  '11d5960a326750d58380'+'78e36cf38b85af677262',
+  '49933ea5288caeca8642'+'d1e84afbd3f7d6820020',
+];
+assert.match(workflow,/permissions:\n  contents: read/);
+assert.ok(!/pull_request_target|secrets\./.test(workflow));
+for(const pin of publicActionPins)assert.ok(workflow.includes(`@${pin}`));
+
+const ignoredDirectories=new Set(['node_modules','__pycache__','.git']);
+const files=(await readdir('.',{recursive:true,withFileTypes:true})).filter(entry=>entry.isFile()&&!entry.parentPath.split(/[\\/]/).some(part=>ignoredDirectories.has(part)));
 for(const entry of files){
   const path=`${entry.parentPath}/${entry.name}`.replaceAll('\\','/');
-  const text=await readFile(path,'utf8');
+  let text=await readFile(path,'utf8');
+  for(const pin of publicActionPins)text=text.replaceAll(pin,'PINNED_PUBLIC_ACTION');
   assert.ok(!/\b(?:[a-f0-9]{40,}|[A-Za-z0-9_-]{48,})\b/.test(text),`Possible secret in ${path}`);
 }
 
