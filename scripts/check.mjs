@@ -9,6 +9,21 @@ assert.ok(Array.isArray(request.schema)&&request.schema.length>0);
 const readme=await readFile('README.md','utf8');
 assert.match(readme,/rapidapi\.com\/Frere527\/api\/rowguard-csv-validation1/);
 assert.match(readme,/rowguard-csv-validation1\.p\.rapidapi\.com/);
+assert.match(readme,/RowGuard\.postman_collection\.json/);
+
+const collection=JSON.parse(await readFile('postman/RowGuard.postman_collection.json','utf8'));
+assert.equal(collection.info.schema,'https://schema.getpostman.com/json/collection/v2.1.0/collection.json');
+assert.equal(collection.variable.find(variable=>variable.key==='rapidapiKey')?.value,'');
+assert.equal(collection.variable.find(variable=>variable.key==='rapidapiHost')?.value,'rowguard-csv-validation1.p.rapidapi.com');
+assert.equal(collection.item.length,2);
+for(const item of collection.item){
+  assert.equal(item.request.method,'POST');
+  assert.equal(item.request.url.raw,'https://{{rapidapiHost}}/v1/validate');
+  assert.equal(item.request.header.find(header=>header.key==='X-RapidAPI-Key')?.value,'{{rapidapiKey}}');
+  const body=JSON.parse(item.request.body.raw);
+  assert.equal(typeof body.csv,'string');
+  assert.ok(Array.isArray(body.schema)&&body.schema.length>0);
+}
 
 const syntax=spawnSync(process.execPath,['--check','examples/client.js'],{encoding:'utf8'});
 assert.equal(syntax.status,0,syntax.stderr);

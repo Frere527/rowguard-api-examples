@@ -1,0 +1,109 @@
+{
+  "info": {
+    "name": "RowGuard CSV Validation API",
+    "description": "Copy-ready requests for testing RowGuard through RapidAPI. Subscribe to the BASIC plan, set rapidapiKey in your local Postman environment or collection variables, and never commit the value.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "rapidapiHost",
+      "value": "rowguard-csv-validation1.p.rapidapi.com",
+      "type": "string"
+    },
+    {
+      "key": "rapidapiKey",
+      "value": "",
+      "type": "secret"
+    }
+  ],
+  "item": [
+    {
+      "name": "Validate a correct CSV",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-RapidAPI-Key",
+            "value": "{{rapidapiKey}}",
+            "type": "text"
+          },
+          {
+            "key": "X-RapidAPI-Host",
+            "value": "{{rapidapiHost}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"csv\": \"sku,email,quantity\\nA-1,ana@example.com,3\\nB-2,luis@example.com,5\",\n  \"schema\": [\n    {\"name\": \"sku\", \"required\": true, \"unique\": true},\n    {\"name\": \"email\", \"type\": \"email\", \"required\": true},\n    {\"name\": \"quantity\", \"type\": \"integer\", \"min\": 0}\n  ],\n  \"include_data\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://{{rapidapiHost}}/v1/validate",
+          "protocol": "https",
+          "host": [
+            "{{rapidapiHost}}"
+          ],
+          "path": [
+            "v1",
+            "validate"
+          ]
+        },
+        "description": "Expected result: HTTP 200 with valid=true and two valid rows."
+      }
+    },
+    {
+      "name": "Detect duplicate and invalid rows",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-RapidAPI-Key",
+            "value": "{{rapidapiKey}}",
+            "type": "text"
+          },
+          {
+            "key": "X-RapidAPI-Host",
+            "value": "{{rapidapiHost}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"csv\": \"sku,quantity\\nA-1,3\\nA-1,-1\",\n  \"schema\": [\n    {\"name\": \"sku\", \"required\": true, \"unique\": true},\n    {\"name\": \"quantity\", \"type\": \"integer\", \"min\": 0}\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://{{rapidapiHost}}/v1/validate",
+          "protocol": "https",
+          "host": [
+            "{{rapidapiHost}}"
+          ],
+          "path": [
+            "v1",
+            "validate"
+          ]
+        },
+        "description": "Expected result: HTTP 200 with valid=false, duplicate errors for both rows and a minimum-value error."
+      }
+    }
+  ]
+}

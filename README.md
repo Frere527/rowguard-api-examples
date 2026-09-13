@@ -8,6 +8,8 @@ This repository contains dependency-free Python and Node.js clients plus a cURL 
 
 For an automation workflow, follow the [n8n HTTP Request recipe](docs/n8n.md). It keeps the key in a credential and branches on the response's `valid` field before any database write.
 
+Prefer a visual client? Import [`postman/RowGuard.postman_collection.json`](postman/RowGuard.postman_collection.json), set the collection variable `rapidapiKey` locally, and run either the valid or invalid sample. The committed key value is intentionally empty.
+
 ## First successful request
 
 1. Select BASIC, the free plan, and review RapidAPI's subscription terms.
