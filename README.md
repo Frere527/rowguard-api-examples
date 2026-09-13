@@ -159,4 +159,4 @@ The application processes CSV in memory and does not store files or log cell val
 
 Formula detection is a conservative heuristic, not a complete spreadsheet export sanitizer. In warning mode, returned data may contain formula risks. Keep safe export handling in your own application. Returned strings are not a guarantee of data accuracy or permission to import them.
 
-No contractual uptime SLA is included in the MVP. Contact the provider through this API's RapidAPI discussion/support channel and include a request ID; do not post CSV containing personal data or API keys.
+No contractual uptime SLA is included in the MVP. Use the repository's [private vulnerability reporting](SECURITY.md) for security problems. For general integration support, contact the provider through this API's RapidAPI discussion/support channel and include a request ID; do not post CSV containing personal data or API keys.

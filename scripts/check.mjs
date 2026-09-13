@@ -12,6 +12,11 @@ assert.match(readme,/rowguard-csv-validation1\.p\.rapidapi\.com/);
 assert.match(readme,/RowGuard\.postman_collection\.json/);
 assert.match(readme,/postman\.com\/dark-shadow-744867\/rowguard-csv-validation-api\/overview/);
 assert.match(readme,/documenter\.getpostman\.com\/view\/58184962\/2sBYAytUGg/);
+assert.match(readme,/private vulnerability reporting/);
+
+const security=await readFile('SECURITY.md','utf8');
+assert.match(security,/security\/advisories\/new/);
+assert.match(security,/rowguard-api\.workers\.dev\/security/);
 
 const collection=JSON.parse(await readFile('postman/RowGuard.postman_collection.json','utf8'));
 assert.equal(collection.info.schema,'https://schema.getpostman.com/json/collection/v2.1.0/collection.json');
