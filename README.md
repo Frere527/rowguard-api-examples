@@ -12,6 +12,8 @@ For an automation workflow, follow the [n8n HTTP Request recipe](docs/n8n.md). I
 
 Prefer a visual client? Import [`postman/RowGuard.postman_collection.json`](postman/RowGuard.postman_collection.json), set the collection variable `rapidapiKey` locally, and run either the valid or invalid sample. The committed key value is intentionally empty.
 
+You can also browse the [public RowGuard workspace on Postman API Network](https://www.postman.com/dark-shadow-744867/rowguard-csv-validation-api/overview) or read the [published collection documentation](https://documenter.getpostman.com/view/58184962/2sBYAytUGg). Both public resources keep `rapidapiKey` empty; add your own key only in your local Postman variables.
+
 ## First successful request
 
 1. Select BASIC, the free plan, and review RapidAPI's subscription terms.
