@@ -30,8 +30,8 @@ assert.equal(syntax.status,0,syntax.stderr);
 
 const workflow=await readFile('.github/workflows/check.yml','utf8');
 const publicActionPins=[
-  '11d5960a326750d58380'+'78e36cf38b85af677262',
-  '49933ea5288caeca8642'+'d1e84afbd3f7d6820020',
+  'fbc6f3992d24b796d5a0'+'48ff273f7fcc4a7b6c09',
+  'a0853c24544627f65ddf'+'259abe73b1d18a591444',
 ];
 assert.match(workflow,/permissions:\n  contents: read/);
 assert.ok(!/pull_request_target|secrets\./.test(workflow));
