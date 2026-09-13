@@ -1,0 +1,9 @@
+{
+  "csv": "sku,email,quantity\nA-1,ana@example.com,3\nB-2,luis@example.com,5",
+  "schema": [
+    { "name": "sku", "required": true, "unique": true },
+    { "name": "email", "type": "email", "required": true },
+    { "name": "quantity", "type": "integer", "min": 0 }
+  ],
+  "include_data": true
+}
